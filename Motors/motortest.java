@@ -9,7 +9,7 @@ public void init(){
 motor=hardwareMap.get(DcMotor.class,"motor");
 }
 public void loop(){
-motor.setPower(1)
+motor.setPower(1);
 telemetry.addData("Motor Power:",motor.getPower);
 }
 }
