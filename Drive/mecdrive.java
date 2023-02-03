@@ -1,4 +1,4 @@
-//Work IN PROGRESS DO NOT USE IT WILL GIVE ERRORS
+//Not tested yet
 package org.firstinspires.ftc.teamcode;
 public class MecDrive{
  private DcMotor frontLeftMotor;
@@ -40,4 +40,4 @@ public class MecDrive{
         backRightMotor.setPower(backRightPower);
     }
 }
-}
+
