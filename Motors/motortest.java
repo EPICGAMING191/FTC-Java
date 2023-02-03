@@ -1,6 +1,7 @@
 //Package path here
 import com.qualcomm.robotcore.eventloop.hardware.DcMotor;
 private DCMotor motor;
+@TeleOp
 public class motortest extends OpMode{
 public void init(){
 motor=hardwareMap.get(DcMotor.class,"motor");
