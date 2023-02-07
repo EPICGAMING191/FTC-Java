@@ -6,6 +6,7 @@ public class grippertest extends OpMode{
     private Servo servo1;
     public void init() {
     servo1=hardwareMap.Get(Servo.class,"servo");
+    servo.setDirection(Servo.Direction.FORWARD);
     }
     public void loop() {
         servo.setPosition(0);
