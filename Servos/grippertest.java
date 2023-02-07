@@ -15,5 +15,8 @@ public class grippertest extends OpMode{
     else if(servo.getposition()==1){
         servo1.setPosition(0);
     }
+    else if(servo.getposition()==0.5){
+        servo.setPosition(1);
+}
 }
 }
