@@ -3,7 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 @TeleOp
-public class EliColorSensorIdea extends OpMode {
+public class ColorSensorIdea extends OpMode {
     private double red;
     private double green;
     private double blue;
