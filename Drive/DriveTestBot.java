@@ -1,17 +1,21 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.OpMode.OpMode;
 import com.qualcomm.robotcore.hardware.DCMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.OpMode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp
 public class MecDrive extends OpMode{
+ private double timer= new ElapsedTime;
  private DcMotor frontLeftMotor;
     private DcMotor frontRightMotor;
     private DcMotor backLeftMotor;
     private DcMotor backRightMotor;
-
+    private Servo grippers;
     public void init(HardwareMap hwMap) {
       gamepad1.rumbleBlips(3);
       telemetry.addData("Gamepad ID:",gamepad1.getID)
+        grippers = hwMap.get(Servo.class,"grippers");
         frontLeftMotor = hwMap.get(DcMotor.class, "FL");
         frontRightMotor = hwMap.get(DcMotor.class, "FR");
         backLeftMotor = hwMap.get(DcMotor.class, "BL");
@@ -27,6 +31,7 @@ public class MecDrive extends OpMode{
     double x = -gamepad1.left_stick_x; // Counteract imperfect strafing
     double rx = -gamepad1.right_stick_x; //This is reversed for our turning
     drive{};
+    WorkGrippers{};
  }
    
 
@@ -42,5 +47,8 @@ public class MecDrive extends OpMode{
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
     }
+   public void WorkGrippers(){
+    
+   }
 }
 
