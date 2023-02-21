@@ -52,9 +52,11 @@ public class MecDrive extends OpMode{
     if (gamepad1.a){
      if (gripperState == 0){
       gripperState=1;
+      ChangeState{};
      }
      else {
       gripperState=0;
+       ChangeState{};
      }
     }
    }
