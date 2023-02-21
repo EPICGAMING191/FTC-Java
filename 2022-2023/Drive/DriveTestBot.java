@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp
 public class DriveTestBot extends OpMode {
-    //private double timer= new ElapsedTime();
     private DcMotor frontLeftMotor;
     private double gripperState;
     private DcMotor frontRightMotor;
@@ -19,12 +18,12 @@ public class DriveTestBot extends OpMode {
     private double x;
     private double rx;
     private Servo grippers;
-    ElapsedTime Timer = new ElapsedTime();
+    ElapsedTime MainTimer = new ElapsedTime();
     ElapsedTime CycleTimer = new ElapsedTime();
     public void init() {
         gamepad1.rumbleBlips(3);
         telemetry.addData("Gamepad ID:",gamepad1.getGamepadId());
-        Timer.reset();
+        MainTimer.reset();
         CycleTimer.reset();
         grippers = hardwareMap.get(Servo.class,"grippers");
         frontLeftMotor = hardwareMap.get(DcMotor.class, "FL");
@@ -85,6 +84,7 @@ public class DriveTestBot extends OpMode {
         if (gripperState==0){
             grippers.setPosition(0.45);
             telemetry.addData("Position","Open");
+            logCycle();
         }
         if (gripperState==0){
             grippers.setPosition(0.97);
@@ -92,8 +92,13 @@ public class DriveTestBot extends OpMode {
         }
     }
     public void GetTime(){
-        telemetry.addData("Time:",Timer.seconds());
-        telemetry.addData("Time since last delivery:",CycleTimer.seconds());
+        telemetry.addData("Time:",MainTimer.time());
+        telemetry.addData("Time since last delivery:",CycleTimer.time());
+    }
+    public void logCycle(){
+        double lastCycle=CycleTimer.time();
+        telemetry.addData("Previous Cycle:",lastCycle);
     }
 }
+
 
