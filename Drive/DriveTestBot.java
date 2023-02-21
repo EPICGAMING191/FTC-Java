@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class MecDrive extends OpMode{
  private double timer= new ElapsedTime;
  private DcMotor frontLeftMotor;
+ private double gripperState;
     private DcMotor frontRightMotor;
     private DcMotor backLeftMotor;
     private DcMotor backRightMotor;
@@ -48,7 +49,24 @@ public class MecDrive extends OpMode{
         backRightMotor.setPower(backRightPower);
     }
    public void WorkGrippers(){
-    
+    if (gamepad1.a){
+     if (gripperState == 0){
+      gripperState=1;
+     }
+     else {
+      gripperState=0;
+     }
+    }
+   }
+   public void ChangeState(){
+     if (gripperState==0){
+        servo1.setPosition(0.45);
+        telemetry.addData("Position","Open");
+        }
+        if (gripperState==0){
+            servo1.setPosition(0.97);
+            telemetry.addData("Position","Closed");
+        }
    }
 }
 
