@@ -54,7 +54,7 @@ public class DriveTestBot extends OpMode {
 
     public void start(){
 	wrist.setPosition(0.5);
-}
+    }
     public void loop(){
         drive();
         checkState();
@@ -99,4 +99,6 @@ public class DriveTestBot extends OpMode {
 	}
        }
     }
+   }
 }
+
