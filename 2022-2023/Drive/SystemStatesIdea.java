@@ -4,24 +4,21 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp
-public class DriveTestBot extends OpMode {
+public class TestBotIdea extends OpMode {
     private DcMotor frontLeftMotor;
-    private double gripperState;
     private DcMotor frontRightMotor;
     private DcMotor backLeftMotor;
     private DcMotor backRightMotor;
-    private double y;
-    private double x;
-    private double rx;
+    private double gripperState;
     private Servo grippers;
     private Servo wrist;
     private double state;
+    private double finished;
     ElapsedTime MainTimer = new ElapsedTime();
-    ElapsedTime CycleTimer = new ElapsedTime();
+   ElapsedTime CycleTimer = new ElapsedTime();
     ElapsedTime sleepTimer = new ElapsedTime();
     ElapsedTime pauseBetweenStates = new ElapsedTime();
     public void init() {
@@ -29,8 +26,8 @@ public class DriveTestBot extends OpMode {
         telemetry.addData("Gamepad ID:",gamepad1.getGamepadId());
         MainTimer.reset();
         CycleTimer.reset();
-	sleepTimer.reset();
-	pauseBetweenStates.reset();
+        sleepTimer.reset();
+        pauseBetweenStates.reset();
         grippers = hardwareMap.get(Servo.class,"grippers");
         wrist = hardwareMap.get(Servo.class,"wrist");
         frontLeftMotor = hardwareMap.get(DcMotor.class, "FL");
@@ -53,16 +50,17 @@ public class DriveTestBot extends OpMode {
     }
 
     public void start(){
-	wrist.setPosition(0.5);
+        wrist.setPosition(0.5);
     }
     public void loop(){
         drive();
         checkState();
+
     }
 
 
     public void drive(){
-	double y = -gamepad1.left_stick_y; // Remember, this is reversed!
+        double y = -gamepad1.left_stick_y; // Remember, this is reversed!
         double x = gamepad1.left_stick_x; // Counteract imperfect strafing
         double rx = gamepad1.right_stick_x; //This is reversed for our turning
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
@@ -77,28 +75,36 @@ public class DriveTestBot extends OpMode {
         backRightMotor.setPower(backRightPower);
     }
     public void checkState(){
-	if (gamepad1.a){
-	  if (pauseBetweenStates.seconds()>2){
-	   if (state==0){
-	   grippers.setPosition(0.97);
-	   sleepTimer.reset();
-	      if (sleepTimer.seconds()>1.2){
-	       wrist.setPosition(0.25);
-	       state=1;
-	       pauseBetweenStates.reset();
-	     }
-          }
-            if (state==1){
-	      wrist.setPosition(0.5);
-	      sleepTimer.reset();
-	        if (sleepTimer.seconds()>1.2){
-	          grippers.setPosition(0.45);
-	          state=0;
-		  pauseBetweenStates.reset();
-	     }
-	}
-       }
+        if (gamepad1.a){
+            if (pauseBetweenStates.seconds()>2){
+                if (state==0){
+                    finished=0;
+                    grippers.setPosition(0.97);
+                    gripperState=1;
+                    finished=1;
+                    sleepTimer.reset();
+                    if (finished==1) {
+                        wrist.setPosition(0.25);
+                        state = 1;
+                        finished=2;
+                        pauseBetweenStates.reset();
+                    }
+                }
+                if (state==1){
+                    wrist.setPosition(0.5);
+                    if (wrist.getPosition()==0.5){
+                        finished=1;
+                    }
+                    
+                    if (finished==1){
+                        grippers.setPosition(0.45);
+                        gripperState = 0;
+                        state=0;
+                        pauseBetweenStates.reset();
+                    }
+                }
+            }
+        }
     }
-   }
 }
 
