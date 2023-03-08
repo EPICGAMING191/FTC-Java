@@ -7,6 +7,8 @@ public class UltimateGoalBotDrive extends OpMode {
     private DcMotor frontRightMotor;
     private DcMotor backLeftMotor;
     private DcMotor backRightMotor;
+    private DCMotor leftfly;
+    private DCMotor rightfly;
 
     @Override
     public void init() {
@@ -15,6 +17,8 @@ public class UltimateGoalBotDrive extends OpMode {
         frontRightMotor = hardwareMap.get(DcMotor.class, "FR");
         backLeftMotor = hardwareMap.get(DcMotor.class, "BL");
         backRightMotor = hardwareMap.get(DcMotor.class, "BR");
+        rightfly = hardwareMap.get(DCMotor.class, "rightfly");
+        leftfly = hardwareMap.get(DCMotor.class, "leftfly");
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -28,21 +32,25 @@ public class UltimateGoalBotDrive extends OpMode {
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftfly.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightfly.setDirection(DcMotorSimple.Direction.FORWARD);
     }
     public void start(){
         gamepad1.rumbleBlips(2);
   }
+    
 
    @Override
 
   public void loop() {
   drive();
+  runFlyWheels()
   }
 
   public void drive(){
       double y = -gamepad1.left_stick_y; // Remember, this is reversed!
       double x = gamepad1.left_stick_x; // Counteract imperfect strafing
-      double rx = gamepad1.right_stick_x; //This is reversed for our turning
+      double rx = -gamepad1.right_stick_x; //This is reversed for our turning
       double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
 
       double frontLeftPower = (-y + x + rx) / denominator;
@@ -55,4 +63,9 @@ public class UltimateGoalBotDrive extends OpMode {
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
     }
+    public void runFlyWheels(){
+        leftfly.setPower(-1)
+        rightfly.setPower(-1)
+    }
 }
+
