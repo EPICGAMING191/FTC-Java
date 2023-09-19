@@ -23,7 +23,7 @@ public class MecDrive {
     double y = -gamepad1.left_stick_y; // Remember, this is reversed!
     double x = -gamepad1.left_stick_x; // Counteract imperfect strafing
     double rx = -gamepad1.right_stick_x; //This is reversed for our turning
-    drive{};
+    drive{x,y,rx};
  }
     public void drive(double y, double x, double rx){
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
