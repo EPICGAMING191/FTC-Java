@@ -1,6 +1,6 @@
 //Not tested yet
 package org.firstinspires.ftc.teamcode;
-public class MecDrive{
+public class MecDrive {
  private DcMotor frontLeftMotor;
     private DcMotor frontRightMotor;
     private DcMotor backLeftMotor;
